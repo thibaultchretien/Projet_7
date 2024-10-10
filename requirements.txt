@@ -1,0 +1,6 @@
+Flask==3.0.3
+gensim==4.3.3
+h5py==3.11.0
+nltk==3.9.1
+numpy==1.26.4
+tensorflow==2.17.0
