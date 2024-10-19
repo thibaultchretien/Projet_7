@@ -30,7 +30,7 @@ def Fonction_transfo_data(text):
 def home():
     return "Test TF IDF"
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['GET,POST'])
 def predict():
     if request.content_type != 'application/json':
         return jsonify({'error': 'Content-Type must be application/json'}), 400
