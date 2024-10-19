@@ -26,7 +26,7 @@ def Fonction_transfo_data(text):
     data_final = ' '.join(filtered_w)
     return data_final
 
-@app.route('/home')
+@app.route('/')
 def home():
     return "Test TF IDF"
 
