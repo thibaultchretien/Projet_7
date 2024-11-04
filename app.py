@@ -8,7 +8,7 @@ import logging
 
 # Configurer le logger pour Application Insights
 logger = logging.getLogger(__name__)
-logger.addHandler(AzureLogHandler(connection_string="InstrumentationKey=<Votre_Instrumentation_Key>"))  # Remplacez par votre clé
+logger.addHandler(AzureLogHandler(connection_string="InstrumentationKey=08c3e243-0bee-403a-bf5d-77cf8145f37c"))  # Ajout de la clé d'instrumentation
 logger.setLevel(logging.INFO)
 
 # Télécharger les stopwords si ce n'est pas fait
