@@ -3,13 +3,6 @@ from sklearn.linear_model import LogisticRegression
 import pickle
 import nltk
 from nltk.corpus import stopwords
-from opencensus.ext.azure.log_exporter import AzureLogHandler  # Import Azure Log Handler
-import logging
-
-# Configurer le logger pour Application Insights
-logger = logging.getLogger(__name__)
-logger.addHandler(AzureLogHandler(connection_string="InstrumentationKey=08c3e243-0bee-403a-bf5d-77cf8145f37c"))  # Ajout de la clé d'instrumentation
-logger.setLevel(logging.INFO)
 
 # Télécharger les stopwords si ce n'est pas fait
 nltk.download('stopwords')
@@ -35,22 +28,18 @@ def Fonction_transfo_data(text):
 
 @app.route('/')
 def home():
-    logger.info("Page d'accueil visitée")  # Log visite de la page d'accueil
     return "Test TF IDF"
 
 @app.route('/predict', methods = ['GET','POST'])
 def predict():
     if request.content_type != 'application/json':
-        logger.warning("Requête avec un mauvais Content-Type")  # Log erreur Content-Type
         return jsonify({'error': 'Content-Type must be application/json'}), 400
 
     data = request.get_json()
     text = data.get("text")
     if not text:
-        logger.warning("Aucun texte fourni pour la prédiction")  # Log absence de texte
         return jsonify({'error': 'Aucun texte fourni pour la prédiction'}), 400
 
-    logger.info("Requête reçue pour prédiction")  # Log requête reçue
     text_clean = Fonction_transfo_data(text)
 
     # Transforme le texte nettoyé avec le vectoriseur
@@ -63,11 +52,8 @@ def predict():
     sentiment_value = float(prediction_proba[0][1])  # Probabilité d'être "positif"
     sentiment = 'positif' if sentiment_value >= 0.5 else 'negatif'
 
-    logger.info(f"Prédiction effectuée : {sentiment} avec une probabilité de {sentiment_value}")  # Log prédiction
-
     return jsonify({'sentiment_value': sentiment_value, 'sentiment': sentiment})
 
 # Lancer l'application Flask
 if __name__ == '__main__':
-    logger.info("Démarrage de l'application Flask")  # Log démarrage application
     app.run(host='0.0.0.0', port=5000)
