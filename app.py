@@ -38,7 +38,7 @@ def home():
     logger.info("Page d'accueil visitée")  # Log visite de la page d'accueil
     return "Test TF IDF"
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict')
 def predict():
     if request.content_type != 'application/json':
         logger.warning("Requête avec un mauvais Content-Type")  # Log erreur Content-Type
